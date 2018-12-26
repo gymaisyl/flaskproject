@@ -1,11 +1,12 @@
 from flask import Flask
+from flask import abort
 from flask import redirect
 from flask import request
 from flask import url_for
 from werkzeug.routing import BaseConverter
 
 """
-自定义路由转换器
+错误捕获
 """
 
 # 创建Flask应用程序
@@ -63,6 +64,18 @@ class RegexConverter(BaseConverter):
 
 # 将自定义的路由转换器添加到转换器列表中
 app.url_map.converters["re"] = RegexConverter
+
+
+@app.route("/demo05")
+def demo05():
+    abort(404)
+    return "demo05"
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return "the page is not found"
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug = True)
