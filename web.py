@@ -1,8 +1,10 @@
 from flask import Flask
+from flask import redirect
 from flask import request
+from flask import url_for
 
 """
-路由分发
+重定向
 """
 
 # 创建Flask应用程序
@@ -36,6 +38,15 @@ def demo01(user_id):
 @app.route('/demo02', methods=['GET', 'POST'])
 def demo02():
     return request.method
+
+
+@app.route('/redirect')
+def demo03():
+    """重定向
+    url_for 到自己写的视图函数"""
+
+    # return redirect(url_for('index'))
+    return redirect(url_for('demo01', user_id=123))
 
 
 if __name__ == '__main__':
