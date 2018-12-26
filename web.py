@@ -6,7 +6,7 @@ from flask import url_for
 from werkzeug.routing import BaseConverter
 
 """
-错误捕获
+请求钩子
 """
 
 # 创建Flask应用程序
@@ -76,6 +76,33 @@ def demo05():
 def page_not_found(error):
     return "the page is not found"
 
+
+"""
+before_first_request
+在处理第一个请求前执行;
+before_request
+在每次请求前执行
+如果在某修饰的函数中返回了一个响应，视图函数将不再被调用;
+after_request
+如果没有抛出错误，在每次请求后执行
+接受一个参数：视图函数作出的响应
+在此函数中可以对响应值在返回之前做最后一步修改处理
+需要将参数中的响应在此参数中进行返回;
+teardown_request：
+在每次请求后执行
+接受一个参数：错误信息，如果有相关错误抛出
+"""
+
+
+# 仅仅做一个demo
+@app.before_request
+def before_request():
+    print("before_request")
+
+
+@app.route("/demo06")
+def demo06():
+    return "demo06"
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug = True)
