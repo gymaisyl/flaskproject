@@ -4,7 +4,7 @@ from flask import request
 from flask import url_for
 
 """
-重定向
+自定义状态码
 """
 
 # 创建Flask应用程序
@@ -48,6 +48,10 @@ def demo03():
     # return redirect(url_for('index'))
     return redirect(url_for('demo01', user_id=123))
 
+
+@app.route('/demo04')
+def demo04():
+    return "demo04", 666
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug = True)
