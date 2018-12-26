@@ -2,9 +2,10 @@ from flask import Flask
 from flask import redirect
 from flask import request
 from flask import url_for
+from werkzeug.routing import BaseConverter
 
 """
-自定义状态码
+自定义路由转换器
 """
 
 # 创建Flask应用程序
@@ -52,6 +53,16 @@ def demo03():
 @app.route('/demo04')
 def demo04():
     return "demo04", 666
+
+
+class RegexConverter(BaseConverter):
+    """自定义路由正则"""
+    def __init__(self, url_map, *args):
+        super(RegexConverter, self).__init__(url_map)
+        self.regex = args[0]
+
+# 将自定义的路由转换器添加到转换器列表中
+app.url_map.converters["re"] = RegexConverter
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug = True)
