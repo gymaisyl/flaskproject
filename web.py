@@ -1,9 +1,9 @@
 from flask import Flask
+from flask import request
 
-"""配置加载
-    1.对象中加载：
-    2.从文件中加载配置
-    3.从环境中加载配置"""
+"""
+路由分发
+"""
 
 # 创建Flask应用程序
 app = Flask(__name__,  # flask对应的模板，决定静态文件从哪个路径开始找
@@ -19,16 +19,24 @@ class Config(object):
 
 app.config.from_object(Config)
 
-"""
-app可以直接通过app.的方式进行配置
-app.debug = True
-app.config['DEBUG'] = True
-"""
-
 
 @app.route('/')
 def index():
     return "hello world"
 
+
+# 给路由添加参数，格式 <参数名>
+# 视图函数需要接收这个参数
+@app.route('/demo01/user/<int:user_id>')
+def demo01(user_id):
+    return "demo01 %s" % user_id
+
+
+# 定义不同的请求方式，使用methods
+@app.route('/demo02', methods=['GET', 'POST'])
+def demo02():
+    return request.method
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=5000, debug = True)
