@@ -26,9 +26,26 @@ def template():
             "price": 20
         }
     ]
+
+    mylist = [1, 2, 3, 4]
     return render_template("templates.html", data=mystr,
                            test=demotest,
-                           demoprice=demoprice)
+                           demoprice=demoprice,
+                           mylist=mylist,
+                           )
+
+
+# 自定义过滤器
+# 1.使用装饰器的方式
+@app.template_filter('listreverse')
+def do_listreverse(li):
+    """列表反转后显示数据"""
+    temp = list(li)
+    temp.reverse()
+    return temp
+
+# 2.直接添加过滤器
+# app.add_template_filter(do_listreverse, "listreverse")
 
 if __name__ == '__main__':
     app.run(debug=True)
