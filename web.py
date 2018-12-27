@@ -1,33 +1,35 @@
 from flask import Flask
-from flask import make_response
-from flask import request
+from flask import session
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = "weferahtrj"  # 使用session需要使用
+
+"""
+session依赖于cookie进行传递，但是没有cookie也可以在url中进行传递
+"""
 
 
 @app.route('/')
 def index():
-    user_id = request.cookies.get("user_id")
-    user_name = request.cookies.get("user_name")
-    return '%s:%s' % (user_id, user_name)
+    user_id = session.get("user_id", None)
+    user_name = session.get("user_name", None)
+    return "success"
 
 
 @app.route("/login")
 def login():
-    response = make_response("success")
-    response.set_cookie("user_id", "1", max_age=3600)
-    response.set_cookie("user_name", "flask", max_age=3600)
+    session["user_id"] = 1
+    session["user_name"] = "laowang"
 
-    return response
+    return "success"
 
 
 @app.route("/logout")
 def logout():
-    response = make_response('success')
-    response.delete_cookie("user_id")
-    response.delete_cookie("user_name")
+    session.pop("user_id", None)
+    session.pop("user_id", None)
 
-    return response
+    return "success"
 
 if __name__ == '__main__':
     app.run(debug=True)
