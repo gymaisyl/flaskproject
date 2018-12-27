@@ -1,35 +1,26 @@
 from flask import Flask
-from flask import session
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "weferahtrj"  # 使用session需要使用
 
 """
-session依赖于cookie进行传递，但是没有cookie也可以在url中进行传递
+请求上下文：request context
+1.request
+2.session
+只有在请求发生的时候，才能获取到数据的，称为请求上下文；
+在请求范围之外的话，请求之后会发生　请求之外的异常
 """
 
+
+"""
+应用上下文：application context
+1.current_app
+2.g变量
+应用运行起来之后获取到的数据
+"""
 
 @app.route('/')
 def index():
-    user_id = session.get("user_id", None)
-    user_name = session.get("user_name", None)
-    return "success"
-
-
-@app.route("/login")
-def login():
-    session["user_id"] = 1
-    session["user_name"] = "laowang"
-
-    return "success"
-
-
-@app.route("/logout")
-def logout():
-    session.pop("user_id", None)
-    session.pop("user_id", None)
-
-    return "success"
+    return 'hello world'
 
 if __name__ == '__main__':
     app.run(debug=True)
