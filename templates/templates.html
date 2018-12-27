@@ -11,5 +11,23 @@
 <p>i love China</p>
 {#后端数据返回，进行取数据#}
 {{ data }}
+
+
+{# 过滤器　#}
+{{ 'China' | upper }}
+{{ 'China' | lower }}
+{{ 'China' | reverse | upper }}
+
+{{ data | length }}
+{{ data | last }}
+
+{{ test }}
+{# 不写就是默认的escape #}
+{{ test | escape }}
+{#　safe　表示数据安全，可以进行html显示#}
+{{ test | safe }}
+
+{# 参数求和　#}
+{{ demoprice | sum(attribute="price") }}
 </body>
 </html>

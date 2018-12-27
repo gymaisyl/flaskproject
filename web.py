@@ -17,7 +17,18 @@ def index():
 def template():
     """模板渲染与数据返回"""
     mystr = "forever"
-    return render_template("templates.html", data=mystr)
+    demotest = "<h1>demotest</h1>"
+    demoprice = [
+        {
+            "price": 10
+        },
+        {
+            "price": 20
+        }
+    ]
+    return render_template("templates.html", data=mystr,
+                           test=demotest,
+                           demoprice=demoprice)
 
 if __name__ == '__main__':
     app.run(debug=True)
