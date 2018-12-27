@@ -1,26 +1,24 @@
 from flask import Flask
+from flask_script import Manager
+"""
+通过命令行运行指定端口
+pip install flask-script
+"""
 
 app = Flask(__name__)
+manager = Manager(app)  # app与manager进行关联
 
-"""
-请求上下文：request context
-1.request
-2.session
-只有在请求发生的时候，才能获取到数据的，称为请求上下文；
-在请求范围之外的话，请求之后会发生　请求之外的异常
-"""
-
-
-"""
-应用上下文：application context
-1.current_app
-2.g变量
-应用运行起来之后获取到的数据
-"""
 
 @app.route('/')
 def index():
     return 'hello world'
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    manager.run()
+
+    """
+    运行代码方法：
+        python 当前文件名　runserver
+        -p: 指定端口
+        -d:　制定是否是调试模式"""
