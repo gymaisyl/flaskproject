@@ -8,9 +8,10 @@
     <title>Document</title>
 </head>
 <body>
-<p>i love China</p>
-{# 自定义过滤器#}
-{{ mylist | listreverse }}
+{% for item in data %}
+ {{ item.value }}
+{% endfor %}
+
 
 </body>
 </html>
