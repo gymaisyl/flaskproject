@@ -1,12 +1,11 @@
 from flask import Flask
-from flask_script import Manager
-"""
-通过命令行运行指定端口
-pip install flask-script
-"""
+from flask import render_template
 
+"""
+Jinja2模板引擎;
+模板渲染
+"""
 app = Flask(__name__)
-manager = Manager(app)  # app与manager进行关联
 
 
 @app.route('/')
@@ -14,11 +13,11 @@ def index():
     return 'hello world'
 
 
-if __name__ == '__main__':
-    manager.run()
+@app.route("/template")
+def template():
+    """模板渲染与数据返回"""
+    mystr = "forever"
+    return render_template("templates.html", data=mystr)
 
-    """
-    运行代码方法：
-        python 当前文件名　runserver
-        -p: 指定端口
-        -d:　制定是否是调试模式"""
+if __name__ == '__main__':
+    app.run(debug=True)
